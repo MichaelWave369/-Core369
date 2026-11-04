@@ -135,14 +135,19 @@ export async function streamGenerate(baseUrl, body, timeoutMs = 240000) {
   if (!Number.isFinite(generatedTokens) || generatedTokens <= 0 || !(final.eval_duration > 0)) {
     throw new Error('Ollama did not return valid positive decode metrics');
   }
+  const promptTokens = final.prompt_eval_count ?? 0;
+  const promptCachedTokens = final.prompt_eval_cached_count ?? 0;
+  const promptUncachedTokens = Math.max(0, promptTokens - promptCachedTokens);
   return {
-    promptTokens: final.prompt_eval_count ?? 0,
+    promptTokens,
+    promptCachedTokens,
+    promptUncachedTokens,
     generatedTokens,
     promptSeconds: nsToSec(final.prompt_eval_duration),
     decodeSeconds: nsToSec(final.eval_duration),
     totalSeconds: nsToSec(final.total_duration),
     loadSeconds: nsToSec(final.load_duration),
-    promptTokensPerSec: final.prompt_eval_duration > 0 ? (final.prompt_eval_count ?? 0) * 1e9 / final.prompt_eval_duration : 0,
+    promptTokensPerSec: final.prompt_eval_duration > 0 ? promptUncachedTokens * 1e9 / final.prompt_eval_duration : 0,
     decodeTokensPerSec: generatedTokens * 1e9 / final.eval_duration,
     clientTtftMs: clientTtftMs === null ? null : Number(clientTtftMs.toFixed(2)),
     doneReason: typeof final.done_reason === 'string' ? final.done_reason : null
