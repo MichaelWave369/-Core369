@@ -93,7 +93,7 @@ test('stream parser tolerates chunk splits and takes Ollama decode metrics', asy
     JSON.stringify({ response: 'Hello', done: false }) + '\n',
     JSON.stringify({
       response: '', done: true, prompt_eval_count: 30,
-      prompt_eval_duration: 1000000000, eval_count: 20,
+      prompt_eval_duration: 1000000000, prompt_eval_cached_count: 10, eval_count: 20,
       eval_duration: 2000000000, total_duration: 3000000000,
       load_duration: 500000000, done_reason: 'stop'
     }) + '\n'
@@ -112,7 +112,10 @@ test('stream parser tolerates chunk splits and takes Ollama decode metrics', asy
   try {
     const r = await streamGenerate('http://127.0.0.1:11434', { model: 'test', prompt: 'text' });
     assert.equal(r.decodeTokensPerSec, 10);
-    assert.equal(r.promptTokensPerSec, 30);
+    assert.equal(r.promptTokens, 30);
+    assert.equal(r.promptCachedTokens, 10);
+    assert.equal(r.promptUncachedTokens, 20);
+    assert.equal(r.promptTokensPerSec, 20);
     assert.equal(r.generatedTokens, 20);
     assert.ok(r.clientTtftMs >= 0);
     assert.equal(r.loadSeconds, .5);

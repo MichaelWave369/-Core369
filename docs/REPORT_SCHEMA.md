@@ -22,6 +22,7 @@ This is a local Ollama benchmark report, **not evidence of a new accelerator or 
 - ok and error on failure (error is a short diagnostic)
 - generatedTokens, promptTokens
 - promptSeconds and decodeSeconds from Ollama nanosecond counters
+- promptCachedTokens and promptUncachedTokens: reported cached token counts are excluded from prefill rate numerator
 - promptTokensPerSec and decodeTokensPerSec derived from Ollama counters
 - totalSeconds and loadSeconds from Ollama
 - clientTtftMs: elapsed wall time between POST and the first stream chunk with visible generated text
