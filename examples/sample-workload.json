@@ -1,0 +1,21 @@
+{
+  "schema": "phicore369.workload.v1",
+  "name": "Three-model locality example",
+  "description": "Explicitly synthetic demonstration, not recorded GPU inference.",
+  "models": [
+    {"id": "assistant", "sizeGiB": 5.2, "loadMs": 1250, "inferMs": 320},
+    {"id": "coder", "sizeGiB": 4.6, "loadMs": 980, "inferMs": 280},
+    {"id": "vision", "sizeGiB": 2.4, "loadMs": 720, "inferMs": 260}
+  ],
+  "requests": [
+    {"atMs": 0, "model": "assistant"},
+    {"atMs": 1400, "model": "coder"},
+    {"atMs": 2800, "model": "assistant"},
+    {"atMs": 4200, "model": "vision"},
+    {"atMs": 5600, "model": "coder"},
+    {"atMs": 7000, "model": "assistant"},
+    {"atMs": 8400, "model": "vision"},
+    {"atMs": 9800, "model": "coder"},
+    {"atMs": 11200, "model": "assistant"}
+  ]
+}
