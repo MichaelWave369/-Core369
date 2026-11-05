@@ -146,7 +146,7 @@ test('unknown models and unsupported commands cannot trigger generation',async()
 test('failures remain recorded and do not count as successful replay arrivals',async()=>{
   const d=deps(['first private','/model b:2b','second private','/quit']);
   const old=d.generate;let calls=0;
-  d.generate=async(...args)=>{calls++;if(calls===1)throw Error('local timeout');return old(...args);};
+  d.generate=async(...args)=>{calls++;if(calls===1)throw Error('Ollama echoed first private prompt in an error');return old(...args);};
   const result=await runShadowSession(conf(),calibration(),d);
   assert.equal(result.records.length,2);
   assert.equal(result.records[0].ok,false);
@@ -155,6 +155,7 @@ test('failures remain recorded and do not count as successful replay arrivals',a
   assert.equal(analysis.failures,1);
   assert.equal(analysis.shadow.runs.phi.stats.requests,1);
   assert.ok(!JSON.stringify(result).includes('private'));
+  assert.equal(result.records[0].error,'Local inference failed; diagnostic text deliberately not retained');
 });
 
 test('report rejects malformed data, prompt leaks and injected false measurements',()=>{

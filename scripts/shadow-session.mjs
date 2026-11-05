@@ -173,7 +173,7 @@ export async function runShadowSession(config,calibration,deps={}) {
       report=appendShadowRecord(report,{atMs,model,ok:true,...data});
       print('\nActual Ollama: '+data.decodeTokensPerSec.toFixed(1)+' tok/s decode; '+data.clientTtftMs.toFixed(0)+' ms to first text.');
     }catch(error){
-      report=appendShadowRecord(report,{atMs,model,ok:false,error:error instanceof Error?error.message:'request failed'});
+      report=appendShadowRecord(report,{atMs,model,ok:false,error:'Local inference failed; diagnostic text deliberately not retained'});
       print('\nInference failed: '+String(error?.message||error).slice(0,240));
     }
     const current=shadowComparison(report);

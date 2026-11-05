@@ -22,7 +22,11 @@ export function validateCalibrationForShadow(calibration) {
   if (!m || m.backend !== 'ollama' || typeof m.backendVersion !== 'string' || !m.backendVersion ||
     !m.hardware || typeof m.hardware.cpu !== 'string' || typeof m.hardware.os !== 'string' ||
     !m.generationOptions || !Number.isSafeInteger(m.generationOptions.num_ctx) ||
-    !Number.isSafeInteger(m.generationOptions.num_predict)) fail('manifest metadata');
+    !Number.isSafeInteger(m.generationOptions.num_predict) ||
+    m.generationOptions.num_ctx < 128 || m.generationOptions.num_ctx > 131072 ||
+    m.generationOptions.num_predict < 16 || m.generationOptions.num_predict > 2048 ||
+    m.generationOptions.temperature !== 0 || !Number.isSafeInteger(m.generationOptions.seed) ||
+    m.generationOptions.seed < 0 || m.generationOptions.seed > 2147483647) fail('manifest metadata');
   if (!Array.isArray(m.sourceReports) || m.sourceReports.length < 2 || m.sourceReports.length > 30) fail('model report count');
   const trace = validateWorkload(calibration.trace);
   const ids = new Set();
@@ -125,8 +129,8 @@ export function shadowComparison(report, override={}) {
 
 export function createShadowReport(profile, metadata) {
   const parsed = validateCalibrationForShadow(profile);
-  const settings=validateReplayOptions(metadata.replayOptions);
   if (!metadata || typeof metadata.sessionId !== 'string' || !metadata.sessionId) throw Error('sessionId required');
+  const settings=validateReplayOptions(metadata.replayOptions);
   return {
     schema:SHADOW_SCHEMA, source:SHADOW_SOURCE,
     manifest:{
