@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { analyze, contextSweep, defaults, kvCompressionScenario, presets } from './model.js';
 import MeasuredLab from './MeasuredLab.jsx';
+import ResidencyLab from './ResidencyLab.jsx';
 
 const rounded = (n, decimals = 1) => Number.isFinite(n)
   ? n.toLocaleString('en-US', { maximumFractionDigits: decimals })
@@ -126,8 +127,8 @@ export default function App() {
     <div className="ambient ambient-a"></div><div className="ambient ambient-b"></div>
     <header className="site-header container">
       <a href="#top" className="brand"><div className="brand-mark">Φ</div><div><strong>CORE<span>369</span></strong><small>MEMORY-FIRST COMPUTE LAB</small></div></a>
-      <nav><a href="#laboratory">Simulator</a><a href="#measurements">Measurements</a><a href="#architecture">Architecture</a><a href="https://github.com/MichaelWave369/-Core369" target="_blank" rel="noreferrer">GitHub ↗</a></nav>
-      <div className="live-pill"><i></i> OPEN RESEARCH / R2A</div>
+      <nav><a href="#laboratory">Simulator</a><a href="#measurements">Measurements</a><a href="#residency">Residency</a><a href="#architecture">Architecture</a><a href="https://github.com/MichaelWave369/-Core369" target="_blank" rel="noreferrer">GitHub ↗</a></nav>
+      <div className="live-pill"><i></i> OPEN RESEARCH / R2B</div>
     </header>
     <main id="top">
       <section className="hero container">
@@ -197,6 +198,7 @@ export default function App() {
       </section>
 
       <MeasuredLab />
+      <ResidencyLab />
 
       <section id="architecture" className="architecture container">
         <div className="section-heading"><div><div className="kicker">DESIGN PHILOSOPHY</div><h2>Build from the workload outward.</h2><p>Three layers, one rule: every proposed gain must survive measurement.</p></div></div>
@@ -207,8 +209,8 @@ export default function App() {
         </div>
         <div className="roadmap">
           <div><span>R1 • COMPLETE</span><strong>Analytical model</strong><small>Memory, bandwidth and context ceilings with tests</small></div>
-          <div><span>R2A • NOW</span><strong>Measured baseline</strong><small>Local Ollama recorder and controlled repeat comparisons</small></div>
-          <div><span>R2B / R3 • NEXT</span><strong>Weight bubble & hardware</strong><small>Scheduling experiments first, accelerator prototypes after evidence</small></div>
+          <div><span>R2A • COMPLETE</span><strong>Measured baseline</strong><small>Ollama recorder and controlled repeat comparisons</small></div>
+          <div><span>R2B • NOW</span><strong>Model residency controls</strong><small>Explicit cold/preload crossover with latency and cost accounting</small></div>
         </div>
       </section>
     </main>

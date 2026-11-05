@@ -30,3 +30,7 @@ node scripts/ollama-bench.mjs --model qwen3:4b --runs 6 --out benchmarks/local-b
 Substitute an installed local model. Reports go only to the chosen file path. The first run is warmed up, and three fixed prompts are cycled; all six measurement attempts remain in the report even when they fail. Generated responses and prompt plaintext are not saved. The collector only accepts loopback HTTP. The GitHub Pages dashboard reads local JSON via the user's file picker, not through CORS or a web service.
 
 It records actual Ollama token counts and nanosecond timing fields and a separately labeled client-observed first-text latency. The next experiment must add correctness checks, GPU memory and energy telemetry before we claim efficiency improvements. See [the report contract](REPORT_SCHEMA.md).
+
+## Implemented R2B controlled model-residency crossover
+
+See [R2B protocol](RESIDENCY_R2B.md) for the explicit opt-in CLI, sequence, safety preconditions, paired reports, and critical distinctions between *moving* load time and *eliminating* work. No silent unloads, no network/cloud inference, and no reported optimization gain without quality and energy evidence.
