@@ -12,7 +12,9 @@
     "check": "npm run test && npm run build",
     "bench:ollama": "node scripts/ollama-bench.mjs",
     "bench:residency": "node scripts/residency-bench.mjs",
-    "bench:replay": "node scripts/weightbubble-replay.mjs"
+    "bench:replay": "node scripts/weightbubble-replay.mjs",
+    "assistant:chat": "node scripts/assistant-chat.mjs",
+    "assistant:eval": "node scripts/assistant-eval.mjs"
   },
   "dependencies": {
     "react": "19.1.1",

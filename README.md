@@ -20,6 +20,19 @@ npm run dev
 
 Run npm run build to generate production assets. The GitHub Actions workflow tests PRs and builds/publishes the main branch.
 
+## Φ Companion R0: optional local assistant sidecar
+
+An independent, offline-first research experiment lets you compare the **same Ollama model** in bare, profile, and user-approved-memory configurations. It is not a GPT-6 clone, does not grant shell access, and does not change this project's model-residency experiments.
+
+~~~sh
+# Requires an installed, running local Ollama model; change the name if needed
+npm run assistant:chat -- --model=qwen3:4b
+# /compare What makes a good network troubleshooting plan?
+npm run assistant:eval -- --model=qwen3:4b
+~~~
+
+Memory is opt-in via `/remember`, stored outside the repo on your own machine; `/forget` removes a note. The small synthetic evaluation is *not* proof of general intelligence, model parity, or system safety. See [Φ Companion research protocol](docs/ASSISTANT_R0.md) for safeguards, limitations, and the next measurable experiments.
+
 ## R2A: Measure real Ollama runs locally
 
 Start Ollama with a model already installed, verify its exact name using `ollama list`, then run in the cloned repository:
