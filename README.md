@@ -2,7 +2,7 @@
 
 An MIT-licensed, memory-first AI-native compute architecture research project from Phi369 Labs.
 
-**Status: Rung 2C introduces an offline, budget-aware model-residency policy simulator and reproducible replay CLI, alongside the local R2B Ollama crossover and R2A measured baseline.** No custom memory-paging hardware, real-time live scheduler, or demonstrated performance gain is claimed.
+**Status: Rung 2D introduces measured-input calibration of offline weight-bubble workloads and a read-only Ollama residency observer.** Existing R2A–R2C experiments remain available. No custom memory-paging hardware, live automatic scheduler, or measured policy speedup is claimed.
 
 ## Thesis
 
@@ -89,6 +89,24 @@ The first command produces `benchmarks/r2c-replay.json`. The second expects a lo
 
 **Important:** model weights, loading times and inference times supplied by a sample trace are illustrative, NOT measured RTX 5070 or Ollama results. A positive modeled delta is not a real throughput win. Actual KV/activation memory, concurrency, OS caches, power and output quality are not included.
 
+## R2D: Calibrate simulator inputs using local Ollama evidence
+
+This rung connects completed, isolated **R2B** cold/warm experiment reports from **two or more different models** to the **R2C offline replay engine**. It extracts medians of observed model-loading time, service-time proxy and `/api/ps` GPU residency for each model, checks report compatibility and derives a trace from an explicit *user-provided* arrival sequence.
+
+~~~powershell
+# Optional read-only local residency snapshots; never unloads or generates
+node scripts/ollama-observe.mjs --samples 6 --interval-ms 2000
+
+# Once you have two compatible R2B reports from separate models:
+node scripts/calibrate-residency.mjs --arrivals examples/sample-arrivals.json --report benchmarks/qwen3-r2b.json --report benchmarks/gemma3-r2b.json --budget-gib 12 --out benchmarks/r2d-calibrated.json
+~~~
+
+Those named R2B files are example output destinations, **not included data**. Capture each separately using `scripts/residency-bench.mjs` on an idle local Ollama instance, with the same settings. The names in the arrival JSON must match those models. See [R2D protocol and science limitations](docs/CALIBRATION_R2D.md).
+
+A new **Measured Calibration** section of the React app accepts the R2B JSON files and an arrival sequence via local file pickers, previews the derived profiles and simulation outcome, and exports either a workload JSON or full provenance report. Neither this browser panel nor the conversion CLI contacts Ollama or changes residency.
+
+**Important:** The R2B reports provide model-level empirical *inputs*, **not actual multi-model scheduler performance**. The arrival order is chosen, not observed; `size_vram` is a snapshot, not guaranteed memory occupancy; actual quality, concurrent KV memory, energy, and interference remain unmeasured.
+
 ## R1 features
 
 - Responsive React architecture diagram and real-time scenario lab.
@@ -108,7 +126,8 @@ Read [architecture](docs/ARCHITECTURE.md) and [measurement protocol](docs/MEASUR
 - **R2A (current):** local Ollama adapter, measured baseline records, repeat comparisons, and reporting safeguards.
 - **R2B (current):** opt-in Ollama model residency / preload crossover, paired latency and preloading cost; still no model weight placement control.
 - **R2C (current):** offline budgeted scheduler comparison, synthetic and imported traces, eviction ledger, CLI, adversarial tests.
-- **R2D:** measured, multi-model workload capture; isolate a reversible live scheduler behind an explicit opt-in, with accuracy, contention and power gates.
+- **R2D (current):** read-only model residency observation, compatibility-gated R2B-to-R2C input calibration, provenance-aware offline replay.
+- **R2E (next):** consented real arrival instrumentation, measured multi-model contention, and an isolated opt-in controller design with rollback and safety gates.
 - **R3:** compare memory tiers, coherent links and FPGA prototypes based on R2 evidence.
 - **R4:** custom board or accelerator feasibility if performance, price, power, security and accuracy warrant it.
 

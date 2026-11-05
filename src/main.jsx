@@ -5,6 +5,7 @@ import './styles.css';
 import './measurements.css';
 import './residency.css';
 import './weightbubble.css';
+import './calibration.css';
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode><App /></React.StrictMode>

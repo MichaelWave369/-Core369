@@ -1,0 +1,11 @@
+{
+  "schema": "phicore369.arrivals.v1",
+  "name": "My selected local model switching workload",
+  "requests": [
+    {"atMs": 0, "model": "qwen3:4b"},
+    {"atMs": 5000, "model": "gemma3:12b"},
+    {"atMs": 10000, "model": "qwen3:4b"},
+    {"atMs": 20000, "model": "gemma3:12b"},
+    {"atMs": 30000, "model": "qwen3:4b"}
+  ]
+}

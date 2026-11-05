@@ -38,3 +38,7 @@ See [R2B protocol](RESIDENCY_R2B.md) for the explicit opt-in CLI, sequence, safe
 ## Implemented R2C replay engine
 
 The Weight Bubble policy lab compares transparent memory-residency heuristics using deterministic trace input. It is **not** an inference run. Trace load and inference times are assumed numbers unless explicitly measured and supplied. It does not measure real GPU memory pressure or work with actual KV/activation residency; do not compare its modeled savings directly with R2A measured tokens/second. See [R2C trace and comparison specification](WEIGHT_BUBBLE_R2C.md).
+
+## Implemented R2D measured-input calibration
+
+The R2D converter checks provenance across two or more isolated cold/warm residency reports from R2B, then uses measured median load times and Ollama GPU residency snapshots as parameters for a *derived offline R2C trace*. The user supplies the request arrival sequence explicitly; it is not measured runtime traffic. A read-only observer records timestamped /api/ps snapshots and does not generate or change model state. These tools **do not establish actual scheduler speedups**. See [R2D protocol](CALIBRATION_R2D.md).

@@ -1,7 +1,7 @@
 {
   "name": "phi-core369",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "type": "module",
   "description": "Memory-first AI-native compute architecture laboratory",
   "scripts": {
@@ -14,7 +14,9 @@
     "bench:residency": "node scripts/residency-bench.mjs",
     "bench:replay": "node scripts/weightbubble-replay.mjs",
     "assistant:chat": "node scripts/assistant-chat.mjs",
-    "assistant:eval": "node scripts/assistant-eval.mjs"
+    "assistant:eval": "node scripts/assistant-eval.mjs",
+    "bench:calibrate": "node scripts/calibrate-residency.mjs",
+    "bench:observe": "node scripts/ollama-observe.mjs"
   },
   "dependencies": {
     "react": "19.1.1",
