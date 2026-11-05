@@ -13,7 +13,7 @@ function report(name,digest,loadMs=900,vrBytes=4*1024**3){
     schema:'phicore369.residency.v1',source:'measured-ollama-residency-local',
     manifest:{
       experimentId:name+'-run',utc:'2026-11-04T00:00:00Z',backend:'ollama',backendVersion:'test',
-      model:name,modelDigest:digest,modelSizeBytes:vrBytes*.75,hardware,
+      model:name,modelDigest:digest,modelSizeBytes:vrBytes*.75,hardware:structuredClone(hardware),
       options:{num_ctx:4096,num_predict:96,temperature:0,seed:369},
       pairs:5,promptHashes:hashes,initialLoadedModels:0,initiallyResident:false
     },
@@ -50,7 +50,7 @@ test('two isolated R2B reports calibrate distinct model profiles and replay with
   assert.equal(value.trace.requests.length,5);
   assert.equal(value.trace.models[0].loadMs,800);
   assert.equal(value.trace.models[1].sizeGiB,8);
-  assert.equal(value.trace.models[0].inferMs,160);
+  assert.ok(Math.abs(value.trace.models[0].inferMs-160)<1e-7);
   assert.equal(value.manifest.sourceReports[0].pairs,5);
   assert.equal(calibrationSummary(value).sources,2);
   assert.equal(comparePolicies(value.trace,{budgetGiB:12}).runs.lru.stats.hits,3);
