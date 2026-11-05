@@ -27,7 +27,7 @@ function report(name,digest,loadMs=900,vrBytes=4*1024**3){
       preloadMs:condition==='cold'?0:loadMs,
       residentBeforeGeneration:condition==='preloaded',
       sizeVramBytes:condition==='cold'?null:vrBytes
-    })).flat()
+    }))).flat()
   };
 }
 const arrivals=(models=['qwen3:4b','gemma3:12b'])=>({
