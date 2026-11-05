@@ -2,7 +2,7 @@
 
 An MIT-licensed, memory-first AI-native compute architecture research project from Phi369 Labs.
 
-**Status: Rung 2A adds an Ollama measurement collector and local-only report visualization alongside the Rung 1 simulator.** No manufactured chip, working weight-bubble scheduler, measured accelerator benchmark, or demonstrated speedup is claimed.
+**Status: Rung 2B adds a local Ollama model-residency crossover experiment beside the R2A measurement collector and R1 analytical simulator.** This is an application-level preload/unload experiment, not a custom hardware scheduler or demonstrated computing speedup.
 
 ## Thesis
 
@@ -38,6 +38,22 @@ See [measurement reporting schema](docs/REPORT_SCHEMA.md). **This is measured in
 Live GitHub Pages address **after enabling Pages and deploying main**:
 https://michaelwave369.github.io/-Core369/
 
+## R2B: Model-residency crossover (local, opt-in)
+
+Ollama supports preloading, unloading, and inspecting currently loaded models. This tool compares explicitly unloaded (cold) and preloaded runs of the same model and prompt, with deterministic randomized pairing and preloading cost recorded separately.
+
+~~~sh
+# Read-only inspection; no changes to Ollama
+node scripts/residency-bench.mjs --model qwen3:4b
+
+# Intentionally unload and preload the selected model; only do this on idle Ollama
+node scripts/residency-bench.mjs --model qwen3:4b --pairs 6 --execute
+~~~
+
+Replace the model name with a locally installed model. Running with `--execute` temporarily unloads the selected model and may cause Ollama itself to evict other models when memory is constrained. By default the tool refuses to proceed if any models are already resident. If you need to override this safety precondition, read the [R2B protocol](docs/RESIDENCY_R2B.md) before using `--allow-loaded`.
+
+Import `benchmarks/residency-r2b.json` into the **Residency Crossover Lab** on the webpage. The browser neither connects to Ollama nor uploads the file. Metrics include paired first-text latency, Ollama load time and preloading overhead, along with careful interpretation: preloading shifts latency, and does not necessarily reduce total work or memory demand.
+
 ## R1 features
 
 - Responsive React architecture diagram and real-time scenario lab.
@@ -55,7 +71,8 @@ Read [architecture](docs/ARCHITECTURE.md) and [measurement protocol](docs/MEASUR
 
 - **R1:** analytical simulator, reproducible formulas, tested interactive site.
 - **R2A (current):** local Ollama adapter, measured baseline records, repeat comparisons, and reporting safeguards.
-- **R2B:** isolate one weight-bubble cache or scheduling experiment; add output-quality verification and repeatable matched baselines. llama.cpp support may follow.
+- **R2B (current):** opt-in Ollama model residency / preload crossover, paired latency and preloading cost; still no model weight placement control.
+- **R2C:** budgeted residency scheduling with trace-driven replay, correctness evaluation and energy telemetry before claiming an improvement. llama.cpp support may follow.
 - **R3:** compare memory tiers, coherent links and FPGA prototypes based on R2 evidence.
 - **R4:** custom board or accelerator feasibility if performance, price, power, security and accuracy warrant it.
 
