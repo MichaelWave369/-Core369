@@ -1,0 +1,61 @@
+.bubble-section{background:radial-gradient(ellipse 42% 16% at 77% 5%,#20413685,transparent),#091625;border-top:1px solid #29434c;border-bottom:1px solid #29434c;padding:92px 0 100px}
+.bubble-layout{display:grid;grid-template-columns:minmax(280px,355px) minmax(0,1fr);gap:17px;align-items:start}
+.bubble-config,.bubble-results{background:#102132;border:1px solid #2c4d5d;padding:24px;border-radius:14px;min-width:0}
+.bubble-options{display:grid;gap:8px}
+.bubble-preset{color:#bfd3dd;border:1px solid #375161;border-radius:8px;background:#0b1a29;text-align:left;padding:12px 13px;font-size:12px}
+.bubble-preset.on{color:#b4f9e0;border-color:#6bc9af;background:#15372f}
+.bubble-import-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.bubble-import{position:relative;text-align:center;border:1px solid #4c7a79;padding:11px 7px;border-radius:7px;color:#aee6d8;letter-spacing:.04em;font-size:10px;cursor:pointer;background:#112c32}
+.bubble-import input{position:absolute;opacity:0;inset:0;width:100%;height:100%;cursor:pointer}
+.bubble-import:focus-within{outline:2px solid #80efd0;outline-offset:2px}
+.bubble-detail{border-top:1px solid #2d4b59;margin-top:19px;padding-top:18px}
+.bubble-detail strong{font-family:'Space Grotesk',sans-serif;font-size:16px}
+.bubble-detail p{font-size:11px;line-height:1.7;color:#9db7c4;margin:8px 0}
+.bubble-detail span{font-size:10px;color:#77dec0}
+.bubble-profile{border-top:1px solid #2d4b59;margin-top:20px;padding-top:18px;overflow:auto}
+.bubble-profile table{width:100%;border-collapse:collapse}
+.bubble-profile th,.bubble-profile td{padding:9px 4px;border-bottom:1px solid #244355;color:#b9ced8;font-size:10px;text-align:left}
+.bubble-profile th{color:#82aeba}.bubble-profile td:nth-child(2),.bubble-profile th:nth-child(2),.bubble-profile td:nth-child(3),.bubble-profile th:nth-child(3){text-align:right}
+.bubble-export{margin-top:19px;cursor:pointer;font-size:11px;justify-content:center;gap:4px}
+.bubble-policy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.bubble-policy{min-width:0;background:#0a1a2a;border:1px solid #345062;border-radius:10px;padding:17px 13px}
+.bubble-policy.bubble-best{border-color:#73baa9;background:#102e2e}
+.bubble-policy-head{display:flex;gap:6px;justify-content:space-between;align-items:center}
+.bubble-policy-head span{font-size:11px;color:#e3f5f4;font-weight:700}.bubble-policy-head strong{color:#89b4b7;font-size:8px;line-height:1.5;text-align:right}
+.bubble-best .bubble-policy-head strong{color:#9af6d3}
+.bubble-big{font-family:'Space Grotesk',sans-serif;font-size:clamp(21px,2.9vw,36px);margin:19px 0 15px}
+.bubble-big small{font-size:10px;color:#9fc2cc}
+.bubble-data{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid #274759;padding:10px 0;font-size:10px;color:#9bafc1}
+.bubble-data strong{color:#ecf6f9;text-align:right}
+.bubble-bars{margin-top:25px;padding-top:23px;border-top:1px solid #315061}
+.bubble-bar-row{display:grid;grid-template-columns:120px minmax(50px,1fr) 65px;align-items:center;gap:12px;margin-bottom:15px;font-size:11px;color:#b5cbd3}
+.bubble-bar-row strong{text-align:right}
+.bubble-bar-track{height:15px;border-radius:4px;background:#263e50;overflow:hidden}
+.bubble-bar-fill{height:100%;border-radius:4px}.bubble-bar-fill.none{background:#6a7c9c}.bubble-bar-fill.lru{background:#e0ab85}.bubble-bar-fill.phi{background:#82e7c7}
+.bubble-delta{background:#122b31;border:1px solid #427267;border-radius:10px;padding:18px;margin-top:25px}
+.bubble-delta span,.bubble-delta strong{display:block}.bubble-delta span{font-size:11px;color:#a4d8ce}.bubble-delta strong{font-size:23px;font-family:'Space Grotesk',sans-serif;color:#d0fff0;margin-top:8px}
+.bubble-delta p{font-size:11px;line-height:1.7;color:#a9c2c8;margin:10px 0 0}
+.bubble-ledger{margin-top:30px;padding-top:25px;border-top:1px solid #315061}
+.bubble-stepper{display:flex;align-items:center;gap:13px}
+.bubble-stepper button{border:1px solid #426779;background:#142a3d;color:#b6e0d6;font-size:10px;border-radius:6px;padding:11px;white-space:nowrap}
+.bubble-stepper button:disabled{opacity:.3;cursor:not-allowed}
+.bubble-stepper label{flex:1;text-align:center;font-size:11px;color:#bdd1db}
+.bubble-stepper input{display:block;width:100%;margin-top:9px;accent-color:#83eacb}
+.bubble-current{display:flex;justify-content:space-between;gap:15px;border:1px solid #345362;background:#0b1d2d;border-radius:7px;padding:13px;margin-top:14px;font-size:12px;color:#9ec1c9}
+.bubble-current strong{color:#e8fdf4}
+.bubble-memory-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px}
+.bubble-strip{min-width:0;border:1px solid #365565;border-radius:10px;background:#0b1b2b;padding:14px}
+.bubble-strip .bar-heading{font-size:12px;align-items:start}
+.bubble-strip .bar-heading .muted{font-size:10px;text-align:right}
+.bubble-memory-track{height:25px;background:#23394d;border-radius:6px;display:flex;overflow:hidden}
+.bubble-memory-track>div{border-right:2px solid #0b1b2b;min-width:0}
+.bubble-model-tags{min-height:50px;display:flex;align-content:start;align-items:start;flex-wrap:wrap;gap:5px;margin-top:11px;font-size:10px;color:#b9d1d9}
+.bubble-model-tags span{background:#142e3e;border:1px solid #315366;border-radius:4px;padding:5px}
+.bubble-model-tags b{color:#8be8c9}
+.bubble-event-text{border-top:1px solid #264455;padding-top:11px;display:grid;gap:7px;font-size:10px;color:#9bb8c1;line-height:1.5}
+.bubble-event-text strong{font-size:11px;color:#d7f1e8}
+.bubble-caveats{background:#15252f;border:1px solid #3b5d61;border-radius:9px;padding:19px;margin-top:23px}
+.bubble-caveats strong{font-size:11px;letter-spacing:.12em;color:#95e5d1}
+.bubble-caveats p{font-size:11px;line-height:1.8;color:#a7c0c9;margin:11px 0 0}
+@media(max-width:980px){.bubble-layout{grid-template-columns:1fr}.bubble-policy-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:680px){.bubble-section{padding:62px 0}.bubble-config,.bubble-results{padding:16px}.bubble-policy-grid{grid-template-columns:1fr}.bubble-policy{padding:15px}.bubble-memory-pair{grid-template-columns:1fr}.bubble-bar-row{grid-template-columns:96px minmax(40px,1fr) 50px;gap:8px;font-size:10px}.bubble-stepper{gap:6px}.bubble-stepper button{padding:9px 5px;font-size:9px}.bubble-stepper label{font-size:10px}}

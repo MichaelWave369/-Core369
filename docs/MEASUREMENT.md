@@ -34,3 +34,7 @@ It records actual Ollama token counts and nanosecond timing fields and a separat
 ## Implemented R2B controlled model-residency crossover
 
 See [R2B protocol](RESIDENCY_R2B.md) for the explicit opt-in CLI, sequence, safety preconditions, paired reports, and critical distinctions between *moving* load time and *eliminating* work. No silent unloads, no network/cloud inference, and no reported optimization gain without quality and energy evidence.
+
+## Implemented R2C replay engine
+
+The Weight Bubble policy lab compares transparent memory-residency heuristics using deterministic trace input. It is **not** an inference run. Trace load and inference times are assumed numbers unless explicitly measured and supplied. It does not measure real GPU memory pressure or work with actual KV/activation residency; do not compare its modeled savings directly with R2A measured tokens/second. See [R2C trace and comparison specification](WEIGHT_BUBBLE_R2C.md).

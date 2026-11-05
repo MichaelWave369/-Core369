@@ -38,3 +38,9 @@ Sparse/MoE compute reduces active FLOPs but does not eliminate model storage.
 - Allow opt-out of experimental caching and preserve explicit failure modes.
 - No silent system or firmware changes from autonomous components.
 - Treat a future PHB embodiment design as occupant-influenced within safety and engineering requirements, not as evidence of machine consciousness.
+
+## R2C Weight-Bubble policy simulator (implemented)
+
+R2C adds a pure deterministic policy evaluator under a weights-only GiB budget. It never invokes Ollama, edits model weights or touches the device. All three policies replay the same ordered requests. No-cache always incurs assumed loading. LRU evicts the least recently accessed model. Φ maintains decayed historical usage for each model, scoring resident models as `(0.25 + Σ exp(-ln(2) × (now - priorAccess)/halfLife)) × loadMs / sizeGiB` and evicting the lowest score until the new model fits. It cannot use future events.
+
+This is a heuristic, not an optimal algorithm. It may be worse than LRU on changing workloads. Oversized models bypass residency without evicting existing models. The simulator enforces capacity after every request, and TTL is applied only at request boundaries. See [R2C protocol](WEIGHT_BUBBLE_R2C.md).

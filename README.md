@@ -2,7 +2,7 @@
 
 An MIT-licensed, memory-first AI-native compute architecture research project from Phi369 Labs.
 
-**Status: Rung 2B adds a local Ollama model-residency crossover experiment beside the R2A measurement collector and R1 analytical simulator.** This is an application-level preload/unload experiment, not a custom hardware scheduler or demonstrated computing speedup.
+**Status: Rung 2C introduces an offline, budget-aware model-residency policy simulator and reproducible replay CLI, alongside the local R2B Ollama crossover and R2A measured baseline.** No custom memory-paging hardware, real-time live scheduler, or demonstrated performance gain is claimed.
 
 ## Thesis
 
@@ -54,6 +54,28 @@ Replace the model name with a locally installed model. Running with `--execute` 
 
 Import `benchmarks/residency-r2b.json` into the **Residency Crossover Lab** on the webpage. The browser neither connects to Ollama nor uploads the file. Metrics include paired first-text latency, Ollama load time and preloading overhead, along with careful interpretation: preloading shifts latency, and does not necessarily reduce total work or memory demand.
 
+## R2C: Φ Weight Bubble scheduler research
+
+The new **Weight Bubble** section of the React page replays the same synthetic or user-imported workload through three policies:
+
+- **No caching:** each request pays the assumed loading cost.
+- **LRU:** evict the model used least recently.
+- **Φ:** evict the model with the lowest *decayed historical reuse × reload cost / size* score.
+
+Each policy honors an explicit *weights-only* resident memory budget, records every eviction, applies optional idle expiry at request boundaries, bypasses non-fitting oversized models, and exposes **when Φ loses to LRU**. Replaying is entirely offline; it does **not** call Ollama or alter active models.
+
+~~~sh
+# Offline, synthetic preset; no GPU or running Ollama required
+node scripts/weightbubble-replay.mjs --preset bursts --budget-gib 12
+
+# Replay an imported local trace with the same deterministic engine
+node scripts/weightbubble-replay.mjs --trace examples/my-workload.json --budget-gib 12 --out benchmarks/custom-r2c.json
+~~~
+
+The first command produces `benchmarks/r2c-replay.json`. The second expects a local versioned workload file that you create; see [R2C trace format and methodology](docs/WEIGHT_BUBBLE_R2C.md).
+
+**Important:** model weights, loading times and inference times supplied by a sample trace are illustrative, NOT measured RTX 5070 or Ollama results. A positive modeled delta is not a real throughput win. Actual KV/activation memory, concurrency, OS caches, power and output quality are not included.
+
 ## R1 features
 
 - Responsive React architecture diagram and real-time scenario lab.
@@ -72,7 +94,8 @@ Read [architecture](docs/ARCHITECTURE.md) and [measurement protocol](docs/MEASUR
 - **R1:** analytical simulator, reproducible formulas, tested interactive site.
 - **R2A (current):** local Ollama adapter, measured baseline records, repeat comparisons, and reporting safeguards.
 - **R2B (current):** opt-in Ollama model residency / preload crossover, paired latency and preloading cost; still no model weight placement control.
-- **R2C:** budgeted residency scheduling with trace-driven replay, correctness evaluation and energy telemetry before claiming an improvement. llama.cpp support may follow.
+- **R2C (current):** offline budgeted scheduler comparison, synthetic and imported traces, eviction ledger, CLI, adversarial tests.
+- **R2D:** measured, multi-model workload capture; isolate a reversible live scheduler behind an explicit opt-in, with accuracy, contention and power gates.
 - **R3:** compare memory tiers, coherent links and FPGA prototypes based on R2 evidence.
 - **R4:** custom board or accelerator feasibility if performance, price, power, security and accuracy warrant it.
 
