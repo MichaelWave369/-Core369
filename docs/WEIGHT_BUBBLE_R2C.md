@@ -42,7 +42,7 @@ Requires Node 22+, no Ollama and no GPU:
 ~~~sh
 node scripts/weightbubble-replay.mjs --preset bursts --budget-gib 12
 node scripts/weightbubble-replay.mjs --preset round-robin --budget-gib 8 --ttl-ms 30000
-node scripts/weightbubble-replay.mjs --trace examples/my-workload.json --budget-gib 12 --out benchmarks/custom-r2c.json
+node scripts/weightbubble-replay.mjs --trace examples/sample-workload.json --budget-gib 12 --out benchmarks/custom-r2c.json
 ~~~
 
 User-created trace files should not be committed if they contain sensitive host workload characteristics. The CLI never contacts a network service and only writes the explicitly chosen JSON file. Browser trace imports and exported replay reports likewise remain local.

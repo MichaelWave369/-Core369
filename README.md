@@ -69,7 +69,7 @@ Each policy honors an explicit *weights-only* resident memory budget, records ev
 node scripts/weightbubble-replay.mjs --preset bursts --budget-gib 12
 
 # Replay an imported local trace with the same deterministic engine
-node scripts/weightbubble-replay.mjs --trace examples/my-workload.json --budget-gib 12 --out benchmarks/custom-r2c.json
+node scripts/weightbubble-replay.mjs --trace examples/sample-workload.json --budget-gib 12 --out benchmarks/custom-r2c.json
 ~~~
 
 The first command produces `benchmarks/r2c-replay.json`. The second expects a local versioned workload file that you create; see [R2C trace format and methodology](docs/WEIGHT_BUBBLE_R2C.md).
