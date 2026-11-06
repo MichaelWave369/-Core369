@@ -7,6 +7,7 @@ import CalibrationLab from './CalibrationLab.jsx';
 import ShadowLab from './ShadowLab.jsx';
 import PhotonicLab from './PhotonicLab.jsx';
 import HybridLab from './HybridLab.jsx';
+import PhotonicsP2Lab from './PhotonicsP2Lab.jsx';
 
 const rounded = (n, decimals = 1) => Number.isFinite(n)
   ? n.toLocaleString('en-US', { maximumFractionDigits: decimals })
@@ -132,7 +133,7 @@ export default function App() {
     <div className="ambient ambient-a"></div><div className="ambient ambient-b"></div>
     <header className="site-header container">
       <a href="#top" className="brand"><div className="brand-mark">Φ</div><div><strong>CORE<span>369</span></strong><small>MEMORY-FIRST COMPUTE LAB</small></div></a>
-      <nav><a href="#laboratory">Simulator</a><a href="#measurements">Measurements</a><a href="#residency">Residency</a><a href="#bubble">Weight Bubble</a><a href="#calibration">Calibration</a><a href="#shadow">Shadow Mode</a><a href="#photonics">Photonics P0</a><a href="#hybrid">Hybrid P1</a><a href="#architecture">Architecture</a><a href="https://github.com/MichaelWave369/-Core369" target="_blank" rel="noreferrer">GitHub ↗</a></nav>
+      <nav><a href="#laboratory">Simulator</a><a href="#measurements">Measurements</a><a href="#residency">Residency</a><a href="#bubble">Weight Bubble</a><a href="#calibration">Calibration</a><a href="#shadow">Shadow Mode</a><a href="#photonics">Photonics P0</a><a href="#hybrid">Hybrid P1</a><a href="#photonics-p2">Validation P2</a><a href="#architecture">Architecture</a><a href="https://github.com/MichaelWave369/-Core369" target="_blank" rel="noreferrer">GitHub ↗</a></nav>
       <div className="live-pill"><i></i> OPEN RESEARCH / R2E</div>
     </header>
     <main id="top">
@@ -209,6 +210,7 @@ export default function App() {
       <ShadowLab />
       <PhotonicLab />
       <HybridLab />
+      <PhotonicsP2Lab />
 
       <section id="architecture" className="architecture container">
         <div className="section-heading"><div><div className="kicker">DESIGN PHILOSOPHY</div><h2>Build from the workload outward.</h2><p>Three layers, one rule: every proposed gain must survive measurement.</p></div></div>
@@ -226,6 +228,7 @@ export default function App() {
           <div><span>R2E • NOW</span><strong>Foreground shadow sessions</strong><small>Actual consented request timing, offline policy replay, no automatic evictions</small></div>
           <div><span>P0 • EXPERIMENT</span><strong>Photonics-inspired delay lab</strong><small>Offline PyTorch simulator, controlled baselines, read-only local report import</small></div>
           <div><span>P1 • EXPERIMENT</span><strong>Hybrid CPU/GPU routing</strong><small>Matched digital reservoir math, timed stage transfers, optional CUDA parity</small></div>
+          <div><span>P2 • EXPERIMENT</span><strong>Controlled numerical validation</strong><small>Two tasks, seeded paired runs, shuffled method order, exploratory timing uncertainty</small></div>
         </div>
       </section>
     </main>
