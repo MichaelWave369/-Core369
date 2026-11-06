@@ -1,4 +1,4 @@
-name: Photonics R0-P3 CPU simulation smoke
+name: Photonics R0-P4 CPU simulation smoke
 
 on:
   pull_request:
@@ -7,6 +7,7 @@ on:
       - 'scripts/photonics-p1.py'
       - 'scripts/photonics-p2.py'
       - 'scripts/compare-photonics-p3.mjs'
+      - 'scripts/photonics-p4.py'
       - 'src/photonics.js'
       - 'src/photonics-hybrid.js'
       - 'src/photonics-p2.js'
@@ -14,6 +15,7 @@ on:
       - 'tests/test_photonics_r0.py'
       - 'tests/test_photonics_p1.py'
       - 'tests/test_photonics_p2.py'
+      - 'tests/test_photonics_p4.py'
       - 'tests/photonics.test.mjs'
       - 'tests/photonics-hybrid.test.mjs'
       - 'tests/photonics-p2.test.mjs'
@@ -26,6 +28,7 @@ on:
       - 'scripts/photonics-p1.py'
       - 'scripts/photonics-p2.py'
       - 'scripts/compare-photonics-p3.mjs'
+      - 'scripts/photonics-p4.py'
       - 'src/photonics.js'
       - 'src/photonics-hybrid.js'
       - 'src/photonics-p2.js'
@@ -33,6 +36,7 @@ on:
       - 'tests/test_photonics_r0.py'
       - 'tests/test_photonics_p1.py'
       - 'tests/test_photonics_p2.py'
+      - 'tests/test_photonics_p4.py'
       - 'tests/photonics.test.mjs'
       - 'tests/photonics-hybrid.test.mjs'
       - 'tests/photonics-p2.test.mjs'
@@ -78,3 +82,12 @@ jobs:
       - name: Compare two CPU P2 runs with P3 CLI
         run: |
           node scripts/compare-photonics-p3.mjs photonics-p2-smoke.json photonics-p2-repeat.json > /dev/null
+      - name: P4 explicit dry-run writes no evidence
+        run: |
+          python scripts/photonics-p4.py --session ci-dry-run --device cpu
+          test ! -e benchmarks/captures/ci-dry-run
+      - name: P4 consented local CPU capture and manifest
+        run: |
+          python scripts/photonics-p4.py --session ci-p4-smoke --device cpu --samples 64 --steps 8 --nodes 8 --repeats 3 --execute
+      - name: Reverify captured P4 bundle offline
+        run: python scripts/photonics-p4.py --verify benchmarks/captures/ci-p4-smoke
