@@ -2,7 +2,7 @@
 
 An MIT-licensed, memory-first AI-native compute architecture research project from Phi369 Labs.
 
-**Status: Rung 2D introduces measured-input calibration of offline weight-bubble workloads and a read-only Ollama residency observer.** Existing R2A–R2C experiments remain available. No custom memory-paging hardware, live automatic scheduler, or measured policy speedup is claimed.
+**Status: Rung 2E adds consented, foreground local Ollama sessions with shadow LRU/Φ policy replay.** The simulator uses actual submitted request timing and prior R2D model profiles but does NOT apply its scheduling decisions. No automatic eviction or measured policy speedup is claimed.
 
 ## Thesis
 
@@ -107,6 +107,24 @@ A new **Measured Calibration** section of the React app accepts the R2B JSON fil
 
 **Important:** The R2B reports provide model-level empirical *inputs*, **not actual multi-model scheduler performance**. The arrival order is chosen, not observed; `size_vram` is a snapshot, not guaranteed memory occupancy; actual quality, concurrent KV memory, energy, and interference remain unmeasured.
 
+## R2E: Foreground local shadow sessions (consent required)
+
+R2E lets you **manually send prompts** through a local terminal client, switch between allowlisted R2D-calibrated Ollama models, and collect actual per-request timing and arrival data. No background interception. The offline shadow scheduler analyzes your observed requests but never sends model preloads, unloads, or evictions.
+
+First create benchmarks/r2d-calibrated.json from at least two compatible R2B reports using R2D. Then:
+
+~~~powershell
+# Preview local calibration and selected model only. ZERO Ollama requests.
+node scripts/shadow-session.mjs --profiles benchmarks/r2d-calibrated.json --model qwen3:4b
+
+# Explicitly opt in to a foreground prompt session.
+node scripts/shadow-session.mjs --profiles benchmarks/r2d-calibrated.json --model qwen3:4b --execute --max-requests 20
+~~~
+
+Inside the session, type plain prompts to generate text; use /model NAME to change models, /status for read-only Ollama residency, and /quit to save the JSON report. Generated text is displayed but never saved, and the report contains no prompt text. Only model/timing/hardware metadata is retained, so review it before sharing.
+
+Open the new **Shadow Mode** React section and import benchmarks/r2e-shadow-session.json to compare actual Ollama metrics with **counterfactual** no-cache/LRU/Φ replay costs. A modeled delta is not a measured speedup. The website does not connect to your local Ollama. See [R2E safety and interpretation](docs/SHADOW_R2E.md).
+
 ## R1 features
 
 - Responsive React architecture diagram and real-time scenario lab.
@@ -127,7 +145,8 @@ Read [architecture](docs/ARCHITECTURE.md) and [measurement protocol](docs/MEASUR
 - **R2B (current):** opt-in Ollama model residency / preload crossover, paired latency and preloading cost; still no model weight placement control.
 - **R2C (current):** offline budgeted scheduler comparison, synthetic and imported traces, eviction ledger, CLI, adversarial tests.
 - **R2D (current):** read-only model residency observation, compatibility-gated R2B-to-R2C input calibration, provenance-aware offline replay.
-- **R2E (next):** consented real arrival instrumentation, measured multi-model contention, and an isolated opt-in controller design with rollback and safety gates.
+- **R2E (current):** operator-consented foreground Ollama prompts, observed arrival and timing metadata, shadow LRU/Φ replay, strict no-automatic-eviction boundary.
+- **R2F:** plan and independently verify a dry-run-first live controller against isolated Ollama instances with allowlists, kill switches, trace audit, memory headroom and correctness/power gates.
 - **R3:** compare memory tiers, coherent links and FPGA prototypes based on R2 evidence.
 - **R4:** custom board or accelerator feasibility if performance, price, power, security and accuracy warrant it.
 

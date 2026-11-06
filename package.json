@@ -1,7 +1,7 @@
 {
   "name": "phi-core369",
   "private": true,
-  "version": "0.4.0",
+  "version": "0.5.0",
   "type": "module",
   "description": "Memory-first AI-native compute architecture laboratory",
   "scripts": {
@@ -16,7 +16,8 @@
     "assistant:chat": "node scripts/assistant-chat.mjs",
     "assistant:eval": "node scripts/assistant-eval.mjs",
     "bench:calibrate": "node scripts/calibrate-residency.mjs",
-    "bench:observe": "node scripts/ollama-observe.mjs"
+    "bench:observe": "node scripts/ollama-observe.mjs",
+    "bench:shadow": "node scripts/shadow-session.mjs"
   },
   "dependencies": {
     "react": "19.1.1",
