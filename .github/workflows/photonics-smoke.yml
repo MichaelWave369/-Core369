@@ -1,28 +1,36 @@
-name: Photonics R0-P1 CPU simulation smoke
+name: Photonics R0-P2 CPU simulation smoke
 
 on:
   pull_request:
     paths:
       - 'scripts/photonics-r0.py'
       - 'scripts/photonics-p1.py'
+      - 'scripts/photonics-p2.py'
       - 'src/photonics.js'
       - 'src/photonics-hybrid.js'
+      - 'src/photonics-p2.js'
       - 'tests/test_photonics_r0.py'
       - 'tests/test_photonics_p1.py'
+      - 'tests/test_photonics_p2.py'
       - 'tests/photonics.test.mjs'
       - 'tests/photonics-hybrid.test.mjs'
+      - 'tests/photonics-p2.test.mjs'
       - '.github/workflows/photonics-smoke.yml'
   push:
     branches: [main]
     paths:
       - 'scripts/photonics-r0.py'
       - 'scripts/photonics-p1.py'
+      - 'scripts/photonics-p2.py'
       - 'src/photonics.js'
       - 'src/photonics-hybrid.js'
+      - 'src/photonics-p2.js'
       - 'tests/test_photonics_r0.py'
       - 'tests/test_photonics_p1.py'
+      - 'tests/test_photonics_p2.py'
       - 'tests/photonics.test.mjs'
       - 'tests/photonics-hybrid.test.mjs'
+      - 'tests/photonics-p2.test.mjs'
       - '.github/workflows/photonics-smoke.yml'
   workflow_dispatch:
 
@@ -54,3 +62,8 @@ jobs:
       - name: Validate P1 emitted report
         run: |
           node --input-type=module -e "import {readFileSync} from 'node:fs'; import {parseHybridReport} from './src/photonics-hybrid.js'; const report=parseHybridReport(readFileSync('photonics-p1-smoke.json','utf8')); if (report.environment.device !== 'cpu') throw Error('Unexpected GPU'); console.log('Hybrid P1 CPU JSON accepted');"
+      - name: Generate P2 CPU paired trials
+        run: python scripts/photonics-p2.py --device cpu --samples 64 --steps 8 --nodes 8 --repeats 3 --out photonics-p2-smoke.json
+      - name: Validate emitted P2 report in JavaScript
+        run: |
+          node --input-type=module -e "import {readFileSync} from 'node:fs'; import {parsePhotonicsP2} from './src/photonics-p2.js'; const r=parsePhotonicsP2(readFileSync('photonics-p2-smoke.json','utf8')); if (r.environment.device !== 'cpu' || Object.keys(r.tasks).length !== 2) throw Error('Invalid P2 CPU smoke'); console.log('P2 CPU report accepted');"
