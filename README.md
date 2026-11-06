@@ -179,6 +179,25 @@ Use `--device cpu` in both P2 runs if local CUDA is unavailable. The dashboard's
 
 See [P3 repeatability protocol](docs/PHOTONICS_P3.md).
 
+## Photonics P4: one-command local evidence capture
+
+P4 adds a **strictly opt-in** local runner that starts two independently timed P2 numerical executions, checks the pair with P3, and saves an integrity-manifested bundle for later inspection. It does not remotely access your PC, automatically upload your results, measure optical power, or claim that digital PyTorch equals physical photonic hardware.
+
+~~~powershell
+# Preview only: no computation or files written
+python scripts/photonics-p4.py --session rtx369-first --device cuda
+
+# Explicitly run on your own installed CUDA PyTorch
+python scripts/photonics-p4.py --session rtx369-first --device cuda --execute
+
+# Check saved file hashes and recompute the read-only P3 comparison
+python scripts/photonics-p4.py --verify benchmarks/captures/rtx369-first
+~~~
+
+The directory `benchmarks/captures/<session>/` is Git-ignored and contains two P2 runs, their P3 comparison, and a SHA-256 manifest. Hashes are **not cryptographic proof of source hardware or independent runs**. View the two reports in the existing **Repeatability P3** browser panel.
+
+Read the [P4 capture protocol](docs/PHOTONICS_P4.md) before executing benchmarks.
+
 ## R1 features
 
 - Responsive React architecture diagram and real-time scenario lab.
