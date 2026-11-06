@@ -19,7 +19,8 @@
     "bench:observe": "node scripts/ollama-observe.mjs",
     "bench:shadow": "node scripts/shadow-session.mjs",
     "bench:photonics": "python scripts/photonics-r0.py",
-    "bench:photonics:p1": "python scripts/photonics-p1.py"
+    "bench:photonics:p1": "python scripts/photonics-p1.py",
+    "bench:photonics:p2": "python scripts/photonics-p2.py"
   },
   "dependencies": {
     "react": "19.1.1",
