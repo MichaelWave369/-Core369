@@ -42,3 +42,7 @@ The Weight Bubble policy lab compares transparent memory-residency heuristics us
 ## Implemented R2D measured-input calibration
 
 The R2D converter checks provenance across two or more isolated cold/warm residency reports from R2B, then uses measured median load times and Ollama GPU residency snapshots as parameters for a *derived offline R2C trace*. The user supplies the request arrival sequence explicitly; it is not measured runtime traffic. A read-only observer records timestamped /api/ps snapshots and does not generate or change model state. These tools **do not establish actual scheduler speedups**. See [R2D protocol](CALIBRATION_R2D.md).
+
+## R2E foreground request collection and shadow replay
+
+Only requests voluntarily entered into the R2E terminal client are observed. Actual first-text latency, Ollama token and load metrics are stored without prompt/response text. R2D profiles calibrate the R2C policy replay of those successful request times. The replay is a **counterfactual simulation**: no live LRU or Φ scheduling is applied and modeled deltas cannot be called performance wins. See [R2E protocol](SHADOW_R2E.md).

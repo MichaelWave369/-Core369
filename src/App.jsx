@@ -4,6 +4,7 @@ import MeasuredLab from './MeasuredLab.jsx';
 import ResidencyLab from './ResidencyLab.jsx';
 import WeightBubbleLab from './WeightBubbleLab.jsx';
 import CalibrationLab from './CalibrationLab.jsx';
+import ShadowLab from './ShadowLab.jsx';
 import PhotonicLab from './PhotonicLab.jsx';
 
 const rounded = (n, decimals = 1) => Number.isFinite(n)
@@ -130,8 +131,8 @@ export default function App() {
     <div className="ambient ambient-a"></div><div className="ambient ambient-b"></div>
     <header className="site-header container">
       <a href="#top" className="brand"><div className="brand-mark">Φ</div><div><strong>CORE<span>369</span></strong><small>MEMORY-FIRST COMPUTE LAB</small></div></a>
-      <nav><a href="#laboratory">Simulator</a><a href="#measurements">Measurements</a><a href="#residency">Residency</a><a href="#bubble">Weight Bubble</a><a href="#calibration">Calibration</a><a href="#photonics">Photonics</a><a href="#architecture">Architecture</a><a href="https://github.com/MichaelWave369/-Core369" target="_blank" rel="noreferrer">GitHub ↗</a></nav>
-      <div className="live-pill"><i></i> OPEN RESEARCH / R2D</div>
+      <nav><a href="#laboratory">Simulator</a><a href="#measurements">Measurements</a><a href="#residency">Residency</a><a href="#bubble">Weight Bubble</a><a href="#calibration">Calibration</a><a href="#shadow">Shadow Mode</a><a href="#photonics">Photonics</a><a href="#architecture">Architecture</a><a href="https://github.com/MichaelWave369/-Core369" target="_blank" rel="noreferrer">GitHub ↗</a></nav>
+      <div className="live-pill"><i></i> OPEN RESEARCH / R2E</div>
     </header>
     <main id="top">
       <section className="hero container">
@@ -204,6 +205,7 @@ export default function App() {
       <ResidencyLab />
       <WeightBubbleLab />
       <CalibrationLab />
+      <ShadowLab />
       <PhotonicLab />
 
       <section id="architecture" className="architecture container">
@@ -218,7 +220,8 @@ export default function App() {
           <div><span>R2A • COMPLETE</span><strong>Measured baseline</strong><small>Ollama recorder and controlled repeat comparisons</small></div>
           <div><span>R2B • COMPLETE</span><strong>Model residency controls</strong><small>Explicit cold/preload crossover and latency accounting</small></div>
           <div><span>R2C • COMPLETE</span><strong>Budget-aware weight bubble</strong><small>Offline LRU vs Φ trace replay and eviction ledger</small></div>
-          <div><span>R2D • COMPLETE</span><strong>Measured input calibration</strong><small>Isolated R2B profiles, provenance checks, derived offline comparisons</small></div>
+          <div><span>R2D • COMPLETE</span><strong>Measured input calibration</strong><small>Validated R2B profiles, derived offline comparisons</small></div>
+          <div><span>R2E • NOW</span><strong>Foreground shadow sessions</strong><small>Actual consented request timing, offline policy replay, no automatic evictions</small></div>
           <div><span>P0 • EXPERIMENT</span><strong>Photonics-inspired delay lab</strong><small>Offline PyTorch simulator, controlled baselines, read-only local report import</small></div>
         </div>
       </section>
