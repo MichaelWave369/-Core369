@@ -2,7 +2,7 @@
 
 An MIT-licensed, memory-first AI-native compute architecture research project from Phi369 Labs.
 
-**Status: Rung 2D introduces measured-input calibration of offline weight-bubble workloads and a read-only Ollama residency observer.** Existing R2A–R2C experiments remain available. No custom memory-paging hardware, live automatic scheduler, or measured policy speedup is claimed.
+**Status: Rung 2D adds measured-input calibration, and Photonics P0 adds an isolated software-only optical-dynamics research lane.** Existing R2A–R2C experiments remain available. No custom memory-paging hardware, live automatic scheduler, or measured policy speedup is claimed.
 
 ## Thesis
 
@@ -106,6 +106,21 @@ Those named R2B files are example output destinations, **not included data**. Ca
 A new **Measured Calibration** section of the React app accepts the R2B JSON files and an arrival sequence via local file pickers, previews the derived profiles and simulation outcome, and exports either a workload JSON or full provenance report. Neither this browser panel nor the conversion CLI contacts Ollama or changes residency.
 
 **Important:** The R2B reports provide model-level empirical *inputs*, **not actual multi-model scheduler performance**. The arrival order is chosen, not observed; `size_vram` is a snapshot, not guaranteed memory occupancy; actual quality, concurrent KV memory, energy, and interference remain unmeasured.
+
+## Photonics P0: software-only sine-delay experiment
+
+Following the November 5, 2026 University of Tokyo/NTT paper, this optional **PyTorch numerical simulator** compares a sine-delay virtual reservoir with an electronic tanh reservoir and a raw-input linear control on identical synthetic temporal-XOR samples. It is **not optical hardware**, a paper reproduction, or proof of optical speed, energy or general intelligence advantages.
+
+~~~sh
+# Install PyTorch separately for your platform; CPU works, CUDA is optional.
+python scripts/photonics-r0.py --device cpu --repeats 3
+# After creating a local benchmarks/ directory:
+python scripts/photonics-r0.py --device auto --out benchmarks/photonics-r0.json
+~~~
+
+The **Photonics experiment bay** accepts the resulting JSON manually in your browser and checks the data/simulation trust boundaries. No benchmark output is shipped as a preclaimed result. No automatic links, agents, GPUs, fibers, or power meters are controlled.
+
+See [Photonics R0 protocol](docs/PHOTONICS_R0.md) and [the peer-reviewed publication](https://doi.org/10.1038/s43588-026-01075-w).
 
 ## R1 features
 
