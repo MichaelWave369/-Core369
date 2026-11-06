@@ -153,6 +153,17 @@ The **Hybrid P1** webpage section can import this JSON manually and validate its
 
 See [P1 protocol and limits](docs/PHOTONICS_P1.md).
 
+## Photonics P2: controlled digital validation
+
+P2 adds **paired, seeded digital CPU/CUDA trials** on two temporal tasks with a full-route warm-up, randomized method order and exploratory bootstrap timing intervals. It retains the existing P0 and P1 experiments. All results are measured **PyTorch numerical performance**, not optical hardware acceleration or energy data.
+
+~~~powershell
+New-Item -ItemType Directory -Force benchmarks | Out-Null
+python scripts/photonics-p2.py --device auto --repeats 4 --out benchmarks/photonics-p2.json
+~~~
+
+The **Validation P2** webpage section reads local, explicitly selected report JSON. CUDA partitions appear only when PyTorch actually detects CUDA. No automatic PhiMadaPrime/ThinkTank data actions or hardware intervention are included. See [P2 protocol and statistics](docs/PHOTONICS_P2.md).
+
 ## R1 features
 
 - Responsive React architecture diagram and real-time scenario lab.
