@@ -1,0 +1,43 @@
+name: Photonics R0 CPU simulation smoke
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/photonics-r0.py'
+      - 'src/photonics.js'
+      - 'tests/test_photonics_r0.py'
+      - 'tests/photonics.test.mjs'
+      - '.github/workflows/photonics-smoke.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/photonics-r0.py'
+      - 'src/photonics.js'
+      - 'tests/test_photonics_r0.py'
+      - 'tests/photonics.test.mjs'
+      - '.github/workflows/photonics-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-photonics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install CPU-only PyTorch
+        run: python -m pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+      - name: CPU numerical unit tests
+        run: python -m unittest discover -s tests -p test_photonics_r0.py -v
+      - name: Generate one bounded JSON report
+        run: python scripts/photonics-r0.py --device cpu --samples 64 --nodes 8 --repeats 1 --out photonics-smoke.json
+      - name: Validate emitted JSON against browser importer
+        run: |
+          node --input-type=module -e "import {readFileSync} from 'node:fs'; import {parsePhotonicsReport} from './src/photonics.js'; parsePhotonicsReport(readFileSync('photonics-smoke.json','utf8')); console.log('Simulation report schema valid')"

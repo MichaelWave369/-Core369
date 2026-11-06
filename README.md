@@ -2,7 +2,7 @@
 
 An MIT-licensed, memory-first AI-native compute architecture research project from Phi369 Labs.
 
-**Status: Rung 2E adds consented, foreground local Ollama sessions with shadow LRU/Φ policy replay.** The simulator uses actual submitted request timing and prior R2D model profiles but does NOT apply its scheduling decisions. No automatic eviction or measured policy speedup is claimed.
+**Status: Rung 2E adds consented local Ollama shadow sessions, while Photonics P0 adds a separate software-only optical-dynamics experiment.** The simulator uses actual submitted request timing and prior R2D model profiles but does NOT apply its scheduling decisions. No automatic eviction or measured policy speedup is claimed.
 
 ## Thesis
 
@@ -124,6 +124,21 @@ node scripts/shadow-session.mjs --profiles benchmarks/r2d-calibrated.json --mode
 Inside the session, type plain prompts to generate text; use /model NAME to change models, /status for read-only Ollama residency, and /quit to save the JSON report. Generated text is displayed but never saved, and the report contains no prompt text. Only model/timing/hardware metadata is retained, so review it before sharing.
 
 Open the new **Shadow Mode** React section and import benchmarks/r2e-shadow-session.json to compare actual Ollama metrics with **counterfactual** no-cache/LRU/Φ replay costs. A modeled delta is not a measured speedup. The website does not connect to your local Ollama. See [R2E safety and interpretation](docs/SHADOW_R2E.md).
+
+## Photonics P0: software-only sine-delay experiment
+
+Following the November 5, 2026 University of Tokyo/NTT paper, this optional **PyTorch numerical simulator** compares a sine-delay virtual reservoir with an electronic tanh reservoir and a raw-input linear control on identical synthetic temporal-XOR samples. It is **not optical hardware**, a paper reproduction, or proof of optical speed, energy or general intelligence advantages.
+
+~~~sh
+# Install PyTorch separately for your platform; CPU works, CUDA is optional.
+python scripts/photonics-r0.py --device cpu --repeats 3
+# After creating a local benchmarks/ directory:
+python scripts/photonics-r0.py --device auto --out benchmarks/photonics-r0.json
+~~~
+
+The **Photonics experiment bay** accepts the resulting JSON manually in your browser and checks the data/simulation trust boundaries. No benchmark output is shipped as a preclaimed result. No automatic links, agents, GPUs, fibers, or power meters are controlled.
+
+See [Photonics R0 protocol](docs/PHOTONICS_R0.md) and [the peer-reviewed publication](https://doi.org/10.1038/s43588-026-01075-w).
 
 ## R1 features
 

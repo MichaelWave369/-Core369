@@ -1,0 +1,23 @@
+.photonics-section { padding: 5rem 0; background: radial-gradient(circle at 12% 5%, rgba(95, 180, 220, .10), transparent 48%), #0b1524; }
+.photonics-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+.photonics-panel { min-width: 0; border: 1px solid #304158; background: rgba(13, 24, 40, .86); border-radius: 1rem; padding: 1.3rem; }
+.photonics-panel p { color: #b9c8d8; line-height: 1.7; }
+.photonics-panel code { color: #a3f4df; overflow-wrap: anywhere; }
+.photonics-panel .fine { font-size: .83rem; color: #94a9c2; }
+.photonics-path { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: 1.5rem 0; }
+.photonics-path span:not(.photonics-arrow) { padding: .8rem; border-radius: .6rem; border: 1px solid #35516a; background: #11283a; color: #daf8ee; font-size: .87rem; }
+.photonics-arrow { color: #73ddc5; font-size: 1.2rem; }
+.photonics-upload { display: flex; flex-direction: column; gap: .5rem; padding: 1.2rem; border: 1px dashed #73caba; border-radius: .7rem; margin-top: 1.2rem; color: #e7fff8; }
+.photonics-upload input { max-width: 100%; }
+.photonics-upload small { color: #a3b9cd; }
+.photonics-error { color: #ffb9a8 !important; }
+.photonics-empty { padding: 2rem 1rem; text-align: center; }
+.photonics-empty strong { color: #d9f9ed; }
+.photonics-meta { font-size: .85rem; overflow-wrap: anywhere; }
+.photonics-table-wrap { overflow-x: auto; }
+.photonics-table { width: 100%; border-collapse: collapse; font-size: .84rem; }
+.photonics-table th, .photonics-table td { padding: .85rem .55rem; text-align: left; border-bottom: 1px solid #32445b; }
+.photonics-table th { color: #d8f4ee; font-weight: 600; }
+.photonics-table td { color: #f2fff7; font-variant-numeric: tabular-nums; }
+.photonics-verdict { border-left: 3px solid #75dcbe; padding-left: 1rem; }
+@media (max-width: 900px) { .photonics-layout { grid-template-columns: 1fr; } }
