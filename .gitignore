@@ -8,3 +8,6 @@ coverage/
 
 # Local measured inference data may contain device metadata
 benchmarks/*.json
+
+# P4 captures contain local hardware/device identity and measured data
+benchmarks/captures/
