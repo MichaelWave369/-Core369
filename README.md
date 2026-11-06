@@ -2,7 +2,7 @@
 
 An MIT-licensed, memory-first AI-native compute architecture research project from Phi369 Labs.
 
-**Status: Rung 2E adds consented local Ollama shadow sessions, while Photonics P0 adds a separate software-only optical-dynamics experiment.** The simulator uses actual submitted request timing and prior R2D model profiles but does NOT apply its scheduling decisions. No automatic eviction or measured policy speedup is claimed.
+**Status: Rung 2E contains consented Ollama shadow sessions; Photonics P0 and P1 add separate software-only numerical research labs.** The simulator uses actual submitted request timing and prior R2D model profiles but does NOT apply its scheduling decisions. No automatic eviction or measured policy speedup is claimed.
 
 ## Thesis
 
@@ -139,6 +139,19 @@ python scripts/photonics-r0.py --device auto --out benchmarks/photonics-r0.json
 The **Photonics experiment bay** accepts the resulting JSON manually in your browser and checks the data/simulation trust boundaries. No benchmark output is shipped as a preclaimed result. No automatic links, agents, GPUs, fibers, or power meters are controlled.
 
 See [Photonics R0 protocol](docs/PHOTONICS_R0.md) and [the peer-reviewed publication](https://doi.org/10.1038/s43588-026-01075-w).
+
+## Photonics P1: CPU / CUDA / hybrid digital compute
+
+P1 adds an **opt-in, local PyTorch benchmark** for the same sine-delay reservoir on CPU, GPU (when CUDA exists), and a GPU → CPU → GPU partition that models the overhead of crossing hardware boundaries. A tanh control is also included. **The middle CPU stage is not actual optical equipment.** Results are synchronized digital times, toy-task accuracy, feature parity and PyTorch allocator statistics, never measured optical speed or energy savings.
+
+~~~powershell
+New-Item -ItemType Directory -Force benchmarks | Out-Null
+python scripts/photonics-p1.py --device auto --out benchmarks/photonics-p1.json
+~~~
+
+The **Hybrid P1** webpage section can import this JSON manually and validate its numerical-only provenance. On CPU-only systems, the tool omits CUDA methods explicitly instead of manufacturing GPU results. The existing Photonics P0 experiment stays independently versioned.
+
+See [P1 protocol and limits](docs/PHOTONICS_P1.md).
 
 ## R1 features
 

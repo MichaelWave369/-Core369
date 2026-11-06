@@ -1,20 +1,28 @@
-name: Photonics R0 CPU simulation smoke
+name: Photonics R0-P1 CPU simulation smoke
 
 on:
   pull_request:
     paths:
       - 'scripts/photonics-r0.py'
+      - 'scripts/photonics-p1.py'
       - 'src/photonics.js'
+      - 'src/photonics-hybrid.js'
       - 'tests/test_photonics_r0.py'
+      - 'tests/test_photonics_p1.py'
       - 'tests/photonics.test.mjs'
+      - 'tests/photonics-hybrid.test.mjs'
       - '.github/workflows/photonics-smoke.yml'
   push:
     branches: [main]
     paths:
       - 'scripts/photonics-r0.py'
+      - 'scripts/photonics-p1.py'
       - 'src/photonics.js'
+      - 'src/photonics-hybrid.js'
       - 'tests/test_photonics_r0.py'
+      - 'tests/test_photonics_p1.py'
       - 'tests/photonics.test.mjs'
+      - 'tests/photonics-hybrid.test.mjs'
       - '.github/workflows/photonics-smoke.yml'
   workflow_dispatch:
 
@@ -35,9 +43,14 @@ jobs:
       - name: Install CPU-only PyTorch
         run: python -m pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
       - name: CPU numerical unit tests
-        run: python -m unittest discover -s tests -p test_photonics_r0.py -v
+        run: python -m unittest discover -s tests -p 'test_photonics*.py' -v
       - name: Generate one bounded JSON report
         run: python scripts/photonics-r0.py --device cpu --samples 64 --nodes 8 --repeats 1 --out photonics-smoke.json
       - name: Validate emitted JSON against browser importer
         run: |
           node --input-type=module -e "import {readFileSync} from 'node:fs'; import {parsePhotonicsReport} from './src/photonics.js'; parsePhotonicsReport(readFileSync('photonics-smoke.json','utf8')); console.log('Simulation report schema valid')"
+      - name: Generate P1 CPU-only report (no GPU invented)
+        run: python scripts/photonics-p1.py --device cpu --samples 128 --nodes 16 --repeats 1 --out photonics-p1-smoke.json
+      - name: Validate P1 emitted report
+        run: |
+          node --input-type=module -e "import {readFileSync} from 'node:fs'; import {parseHybridReport} from './src/photonics-hybrid.js'; const report=parseHybridReport(readFileSync('photonics-p1-smoke.json','utf8')); if (report.environment.device !== 'cpu') throw Error('Unexpected GPU'); console.log('Hybrid P1 CPU JSON accepted');"
