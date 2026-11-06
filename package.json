@@ -16,7 +16,8 @@
     "assistant:chat": "node scripts/assistant-chat.mjs",
     "assistant:eval": "node scripts/assistant-eval.mjs",
     "bench:calibrate": "node scripts/calibrate-residency.mjs",
-    "bench:observe": "node scripts/ollama-observe.mjs"
+    "bench:observe": "node scripts/ollama-observe.mjs",
+    "bench:photonics": "python scripts/photonics-r0.py"
   },
   "dependencies": {
     "react": "19.1.1",
