@@ -164,6 +164,21 @@ python scripts/photonics-p2.py --device auto --repeats 4 --out benchmarks/photon
 
 The **Validation P2** webpage section reads local, explicitly selected report JSON. CUDA partitions appear only when PyTorch actually detects CUDA. No automatic PhiMadaPrime/ThinkTank data actions or hardware intervention are included. See [P2 protocol and statistics](docs/PHOTONICS_P2.md).
 
+## Photonics P3: repeated local evidence comparison
+
+P3 takes **two independently captured P2 JSON runs** from the same machine and settings, refuses mismatched CPU/GPU/PyTorch/protocol metadata, and highlights timing and accuracy drift. It does **not** certify independent execution, physical photonic hardware, actual energy use, or optical speedups.
+
+~~~powershell
+New-Item -ItemType Directory -Force benchmarks | Out-Null
+python scripts/photonics-p2.py --device cuda --repeats 6 --out benchmarks/p2-rtx-a.json
+python scripts/photonics-p2.py --device cuda --repeats 6 --out benchmarks/p2-rtx-b.json
+node scripts/compare-photonics-p3.mjs benchmarks/p2-rtx-a.json benchmarks/p2-rtx-b.json
+~~~
+
+Use `--device cpu` in both P2 runs if local CUDA is unavailable. The dashboard's **Repeatability P3** panel accepts the two files manually and displays exploratory drift diagnostics. The updated P2 runner includes extra OS, CPU and thread metadata for this comparison; older reports need regenerating.
+
+See [P3 repeatability protocol](docs/PHOTONICS_P3.md).
+
 ## R1 features
 
 - Responsive React architecture diagram and real-time scenario lab.
