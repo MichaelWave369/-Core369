@@ -1,4 +1,4 @@
-name: Photonics R0-P2 CPU simulation smoke
+name: Photonics R0-P3 CPU simulation smoke
 
 on:
   pull_request:
@@ -6,15 +6,18 @@ on:
       - 'scripts/photonics-r0.py'
       - 'scripts/photonics-p1.py'
       - 'scripts/photonics-p2.py'
+      - 'scripts/compare-photonics-p3.mjs'
       - 'src/photonics.js'
       - 'src/photonics-hybrid.js'
       - 'src/photonics-p2.js'
+      - 'src/photonics-p3.js'
       - 'tests/test_photonics_r0.py'
       - 'tests/test_photonics_p1.py'
       - 'tests/test_photonics_p2.py'
       - 'tests/photonics.test.mjs'
       - 'tests/photonics-hybrid.test.mjs'
       - 'tests/photonics-p2.test.mjs'
+      - 'tests/photonics-p3.test.mjs'
       - '.github/workflows/photonics-smoke.yml'
   push:
     branches: [main]
@@ -22,15 +25,18 @@ on:
       - 'scripts/photonics-r0.py'
       - 'scripts/photonics-p1.py'
       - 'scripts/photonics-p2.py'
+      - 'scripts/compare-photonics-p3.mjs'
       - 'src/photonics.js'
       - 'src/photonics-hybrid.js'
       - 'src/photonics-p2.js'
+      - 'src/photonics-p3.js'
       - 'tests/test_photonics_r0.py'
       - 'tests/test_photonics_p1.py'
       - 'tests/test_photonics_p2.py'
       - 'tests/photonics.test.mjs'
       - 'tests/photonics-hybrid.test.mjs'
       - 'tests/photonics-p2.test.mjs'
+      - 'tests/photonics-p3.test.mjs'
       - '.github/workflows/photonics-smoke.yml'
   workflow_dispatch:
 
@@ -67,3 +73,8 @@ jobs:
       - name: Validate emitted P2 report in JavaScript
         run: |
           node --input-type=module -e "import {readFileSync} from 'node:fs'; import {parsePhotonicsP2} from './src/photonics-p2.js'; const r=parsePhotonicsP2(readFileSync('photonics-p2-smoke.json','utf8')); if (r.environment.device !== 'cpu' || Object.keys(r.tasks).length !== 2) throw Error('Invalid P2 CPU smoke'); console.log('P2 CPU report accepted');"
+      - name: Generate second independent P2 CPU report
+        run: python scripts/photonics-p2.py --device cpu --samples 64 --steps 8 --nodes 8 --repeats 3 --out photonics-p2-repeat.json
+      - name: Compare two CPU P2 runs with P3 CLI
+        run: |
+          node scripts/compare-photonics-p3.mjs photonics-p2-smoke.json photonics-p2-repeat.json > /dev/null
