@@ -20,7 +20,8 @@
     "bench:shadow": "node scripts/shadow-session.mjs",
     "bench:photonics": "python scripts/photonics-r0.py",
     "bench:photonics:p1": "python scripts/photonics-p1.py",
-    "bench:photonics:p2": "python scripts/photonics-p2.py"
+    "bench:photonics:p2": "python scripts/photonics-p2.py",
+    "bench:photonics:p3:compare": "node scripts/compare-photonics-p3.mjs"
   },
   "dependencies": {
     "react": "19.1.1",
